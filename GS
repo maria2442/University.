@@ -1,0 +1,50 @@
+import json
+import requests
+import pandas as pd
+
+
+def act(idgr):
+
+    a='activity'
+    token=''
+    v = 5.92
+
+    response = requests.get('https://api.vk.com/method/groups.getById',
+                             params={
+                                'access_token': token,
+                                'v': v,
+                                'group_ids': idgr,
+                                'fields': a
+                             }
+                             )
+    file = response.json()
+    with open('grstat.json', 'w') as fl:
+        json.dump(file, fl)
+
+
+    file = open('grstat.json')
+    text = file.read()
+    text = json.loads(text)
+    df = pd.DataFrame(text)
+    df = dict(df)
+    q = df.get('response')
+    q = dict(q)
+    q = q.get(0)
+    q = q.get("activity")
+
+    print(q)
+
+
+
+file=open('grrr')
+text = file.read()
+text = json.loads(text)
+
+text=list(text)
+
+i=0
+while i<len(text):
+    w=text[i]
+    w=str(text[i])
+    act(w)
+    i+=1
