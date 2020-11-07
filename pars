@@ -1,0 +1,47 @@
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+import json
+
+URL='https://'
+HEADERS={}
+
+def get_html(url, params=None):
+    r=requests.get(url,headers=HEADERS,params=params)
+    return r
+
+def get_content(html):
+    soup=BeautifulSoup(html, 'html.parser')
+    items=soup.find_all('div', class_='block-spec')
+    #print(items)
+    global df
+    global name
+    name=[]
+    for item in items:
+        name.append({
+            item.find('span',class_='block-spec__direction').get_text()
+        })
+
+        bn=pd.Series(name)
+        df=pd.DataFrame(bn)
+
+        #print(df)
+
+def parse():
+    html=get_html(URL)
+    if html.status_code==200:
+        get_content(html.text)
+    else:
+        print('Error')
+
+
+parse()
+df=str(df)
+'''df=df.json()
+print(type(df))
+with open('kod', 'a') as fl:
+    json.dump(df, fl)'''
+name=str(name)
+a=open('kot','a')
+a.write(name)
+print(name)
