@@ -1,0 +1,34 @@
+import requests
+import json
+
+#https://oauth.vk.com/authorize?client_id="""ID"""&scope=notify,photos,friends,audio,video,notes,pages,docs,status,questions,offers,wall,groups,messages,notifications,stats,ads,offline&redirect_uri=http://api.vk.com/blank.html&display=page&response_type=token
+
+def FG(user_id,filename):
+   
+    token=''
+    v=5.92
+
+    response=requests.get('https://api.vk.com/method/groups.get',
+                          params={
+                              'access_token': token,
+                              'v': v,
+                              'user_id': user_id
+
+                          }
+                          )
+    data=response.json()
+
+
+    with open(filename, 'w') as fl:
+        json.dump(data, fl)
+
+
+
+
+a = str(input())
+b = str(input())
+c = str(input())
+
+FG(a,'G1.json')
+FG(b,'G2.json')
+FG(c,'G3.json')
