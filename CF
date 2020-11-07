@@ -1,0 +1,53 @@
+import pandas as pd
+import json
+
+
+file=open('F1.json')
+text = file.read()
+text = json.loads(text)
+df = pd.DataFrame(text)
+df = df.loc["items"]
+df = dict(df)
+df = pd.DataFrame(df)
+first = list(df['response'])
+
+
+file=open('F2.json')
+text = file.read()
+text = json.loads(text)
+df = pd.DataFrame(text)
+df = df.loc["items"]
+df = dict(df)
+df = pd.DataFrame(df)
+second = list(df['response'])
+
+file=open('F3.json')
+text = file.read()
+text = json.loads(text)
+df = pd.DataFrame(text)
+df = df.loc["items"]
+df = dict(df)
+df = pd.DataFrame(df)
+third = list(df['response'])
+
+
+
+i = 0
+x = 0
+y = 0
+group=[]
+while i < len(first):
+    while x < len(second):
+        if first[i] == second[x]:
+            while y < len(third):
+                if second[x] ==third[y]:
+                    group.append(first[i])
+                    print(first[i])
+
+
+                y = y + 1
+
+        x = x + 1
+        y = 0
+    i = i + 1
+    x = 0
