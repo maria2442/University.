@@ -1,0 +1,33 @@
+import json
+import requests
+
+q = 0
+
+
+def FF(user_id, filename):
+    token = ''
+    v = 5.92
+
+    response = requests.get('https://api.vk.com/method/friends.get',
+                            params={
+                                'access_token': token,
+                                'v': v,
+                                'user_id': user_id
+
+                            }
+                            )
+
+    data = response.json()
+    with open(str(filename), 'w') as fl:
+        json.dump(data, fl)
+
+
+
+
+a = str(input())
+b = str(input())
+c = str(input())
+
+FF(a, 'F1.json')
+FF(b, 'F2.json')
+FF(c, 'F3.json')
